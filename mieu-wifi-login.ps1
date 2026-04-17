@@ -73,7 +73,7 @@ function Invoke-Login {
         $checkUrl = "http://a.cc.mie-u.ac.jp/"
         $response = Invoke-WebRequest -UseBasicParsing -Uri $checkUrl -TimeoutSec 10
 
-        if ($response.Content -notmatch "(?i)content\s*=\s*[`"']1;\s*URL\s*=\s*([^`"']+)[`"']") {
+        if ($response.Content -notmatch '(?i)content\s*=\s*["'']1;\s*URL\s*=\s*([^"'']+)["'']') {
             Write-Host "既にログイン済み" -ForegroundColor Blue
             exit 0
         }
@@ -153,9 +153,9 @@ function Invoke-Reset {
 
 switch ($Command) {
     "init" { Invoke-Init }
-    "login"  { Invoke-Login }
+    "login" { Invoke-Login }
     "logout" { Invoke-Logout }
-    "reset"  { Invoke-Reset }
+    "reset" { Invoke-Reset }
     "help" { Show-Usage }
     default {
         Write-Host "不明なコマンド: $Command" -ForegroundColor Red
