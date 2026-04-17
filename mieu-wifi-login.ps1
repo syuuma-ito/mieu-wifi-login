@@ -119,7 +119,7 @@ function Invoke-Login {
 
 function Invoke-Logout {
     if (-not (Test-Path $sessionFile)) {
-        Write-Host "セッション情報が見つかりません。ログインしていない可能性があります" -ForegroundColor Red
+        Write-Host "セッション情報が見つかりません" -ForegroundColor Red
         exit 1
     }
     $disconnectUrl = (Get-Content $sessionFile -Raw).Trim()
