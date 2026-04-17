@@ -86,6 +86,7 @@ function Invoke-Login {
         $mgwNumber = $matches[1]
         $srvUrl = "https://mgw$mgwNumber.cc.mie-u.ac.jp/cgi-bin/opengate/opengatesrv.cgi"
 
+        Write-Host "ログイン中..."
         $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
         $cookieRes = Invoke-WebRequest -UseBasicParsing -Uri $authUrl -WebSession $session -TimeoutSec 5 | Out-Null
 
