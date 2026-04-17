@@ -79,16 +79,16 @@ function Invoke-Login {
         }
         $authUrl = $matches[1]
 
-        if ($authUrl -notmatch 'mgw(\d+)\.cc\.mie-u\.ac\.jp') {
-            Write-Host "エラー: mgwサーバー番号を抽出できませんでした" -ForegroundColor Red
+        if ($authUrl -notmatch '(mgw\d*)\.cc\.mie-u\.ac\.jp') {
+            Write-Host "エラー: mgwサーバーを抽出できませんでした" -ForegroundColor Red
             exit 1
         }
-        $mgwNumber = $matches[1]
-        $srvUrl = "https://mgw$mgwNumber.cc.mie-u.ac.jp/cgi-bin/opengate/opengatesrv.cgi"
+        $mgwHost = $matches[1]
+        $srvUrl = "https://$mgwHost.cc.mie-u.ac.jp/cgi-bin/opengate/opengatesrv.cgi"
 
         Write-Host "ログイン中..."
         $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
-        $cookieRes = Invoke-WebRequest -UseBasicParsing -Uri $authUrl -WebSession $session -TimeoutSec 5 | Out-Null
+        Invoke-WebRequest -UseBasicParsing -Uri $authUrl -WebSession $session -TimeoutSec 5 | Out-Null
 
         $res = Invoke-WebRequest -UseBasicParsing -Uri $srvUrl -Method POST -WebSession $session -Body @{
             userid         = $id
